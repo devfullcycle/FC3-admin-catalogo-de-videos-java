@@ -29,7 +29,7 @@ public class CreateCategoryUseCaseTest {
 
     @BeforeEach
     void cleanUp() {
-        Mockito.reset(categoryGateway, useCase);
+        Mockito.reset(categoryGateway);
     }
 
     // 1. Teste do caminho feliz

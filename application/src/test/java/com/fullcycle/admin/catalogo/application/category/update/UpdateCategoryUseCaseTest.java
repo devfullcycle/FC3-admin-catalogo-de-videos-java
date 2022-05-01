@@ -32,8 +32,9 @@ public class UpdateCategoryUseCaseTest {
 
     @BeforeEach
     void cleanUp() {
-        Mockito.reset(categoryGateway, useCase);
+        Mockito.reset(categoryGateway);
     }
+
 
     // 1. Teste do caminho feliz
     // 2. Teste passando uma propriedade inválida (name)
