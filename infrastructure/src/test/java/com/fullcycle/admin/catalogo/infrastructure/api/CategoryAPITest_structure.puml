@@ -1,0 +1,578 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.fullcycle.admin.catalogo.infrastructure.api.CategoryAPITest",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1673152585 { 
+   	label=fullcycle
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1299825240 { 
+   	label=admin
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   AggregateRoot2144456249[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AggregateRoot&lt;ID extends Identifier&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Category536948461[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Category</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   active: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   createdAt: Instant [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deletedAt: Instant [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   updatedAt: Instant [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ activate(): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ clone(): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deactivate(): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ newCategory(aName: String, aDescription: String, isActive: boolean): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(aName: String, aDescription: String, isActive: boolean): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validate(handler: ValidationHandler)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategoryAPITest1830006460[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategoryAPITest</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   createCategoryUseCase: CreateCategoryUseCase [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mapper: ObjectMapper [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mvc: MockMvc [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ givenAInvalidCommand_whenCallsCreateCategory_thenShouldReturnDomainException()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ givenAInvalidName_whenCallsCreateCategory_thenShouldReturnNotification()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategoryID536948461[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategoryID</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   value: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ from(anId: String): CategoryID</TD></TR>
+<TR><TD ALIGN="LEFT" >+ from(anId: UUID): CategoryID</TD></TR>
+<TR><TD ALIGN="LEFT" >+ unique(): CategoryID</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategoryJpaEntity1496822843[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategoryJpaEntity</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   active: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   createdAt: Instant [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deletedAt: Instant [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   updatedAt: Instant [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ from(aCategory: Category): CategoryJpaEntity</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toAggregate(): Category</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategoryMySQLGateway604909548[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategoryMySQLGateway</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   repository: CategoryRepository [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ create(aCategory: Category): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteById(anId: CategoryID)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAll(aQuery: CategorySearchQuery): Pagination&lt;Category&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findById(anId: CategoryID): Optional&lt;Category&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- save(aCategory: Category): Category</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(aCategory: Category): Category</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategorySearchQuery536948461[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategorySearchQuery</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   direction: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   page: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   perPage: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sort: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   terms: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ direction(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ page(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ perPage(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sort(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ terms(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CategoryValidator536948461[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CategoryValidator</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   category: Category [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- checkNameConstraints()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validate()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CreateCategoryCommand737426183[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateCategoryCommand</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isActive: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ description(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ name(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CreateCategoryOutput737426183[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateCategoryOutput</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   id: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ from(anId: String): CreateCategoryOutput</TD></TR>
+<TR><TD ALIGN="LEFT" >+ from(aCategory: Category): CreateCategoryOutput</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CreateCategoryUseCase737426183[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateCategoryUseCase</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DefaultCreateCategoryUseCase737426183[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DefaultCreateCategoryUseCase</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   categoryGateway: CategoryGateway [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- create(aCategory: Category): Either&lt;Notification, CreateCategoryOutput&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ execute(aCommand: CreateCategoryCommand): Either&lt;Notification, CreateCategoryOutput&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DefaultGetCategoryByIdUseCase2115087585[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DefaultGetCategoryByIdUseCase</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   categoryGateway: CategoryGateway [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ execute(anIn: String): CategoryOutput</TD></TR>
+<TR><TD ALIGN="LEFT" >- notFound(anId: CategoryID): Supplier&lt;DomainException&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DefaultListCategoriesUseCase1143358579[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DefaultListCategoriesUseCase</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   categoryGateway: CategoryGateway [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ execute(aQuery: CategorySearchQuery): Pagination&lt;CategoryListOutput&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DefaultUpdateCategoryUseCase223978298[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DefaultUpdateCategoryUseCase</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   categoryGateway: CategoryGateway [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ execute(aCommand: UpdateCategoryCommand): Either&lt;Notification, UpdateCategoryOutput&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- notFound(anId: CategoryID): Supplier&lt;DomainException&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- update(aCategory: Category): Either&lt;Notification, UpdateCategoryOutput&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Entity2144456249[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Entity&lt;ID extends Identifier&gt;</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   id: ID [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ validate(handler: ValidationHandler)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Error1951487154[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Error</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   message: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ message(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GetCategoryByIdUseCase2115087585[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GetCategoryByIdUseCase</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Identifier2144456249[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Identifier</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ListCategoriesUseCase1143358579[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ListCategoriesUseCase</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Notification1267800918[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Notification</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   errors: List&lt;Error&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ append(anError: Error): Notification</TD></TR>
+<TR><TD ALIGN="LEFT" >+ append(anHandler: ValidationHandler): Notification</TD></TR>
+<TR><TD ALIGN="LEFT" >+ create(): Notification</TD></TR>
+<TR><TD ALIGN="LEFT" >+ create(t: Throwable): Notification</TD></TR>
+<TR><TD ALIGN="LEFT" >+ create(anError: Error): Notification</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validate(aValidation: Validation): Notification</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Pagination610231697[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Pagination&lt;T&gt;</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   currentPage: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   items: List&lt;T&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   perPage: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   total: long [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ currentPage(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ items(): List&lt;T&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ map(mapper: Function&lt;T, R&gt;): Pagination&lt;R&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ perPage(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ total(): long</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SpecificationUtils1975990949[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SpecificationUtils</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ like(prop: String, term: String): Specification&lt;T&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- like(term: String): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ThrowsValidationHandler1267800918[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ThrowsValidationHandler</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ append(anError: Error): ValidationHandler</TD></TR>
+<TR><TD ALIGN="LEFT" >+ append(anHandler: ValidationHandler): ValidationHandler</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validate(aValidation: Validation): ValidationHandler</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UpdateCategoryCommand223978298[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UpdateCategoryCommand</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isActive: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ description(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ name(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UpdateCategoryUseCase223978298[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UpdateCategoryUseCase</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UseCase29315845[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UseCase&lt;IN, OUT&gt;</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ execute(anIn: IN): OUT</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Validator1951487154[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Validator</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   handler: ValidationHandler [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ validate()</TD></TR>
+<TR><TD ALIGN="LEFT" ># validationHandler(): ValidationHandler</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ValueObject2144456249[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ValueObject</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+AggregateRoot2144456249 -> Category536948461[arrowhead=none, arrowtail=empty, dir=both];
+Category536948461 -> CategoryID536948461[label="newCategory() -> unique()"];
+Category536948461 -> CategoryValidator536948461[label="validate() -> validate()"];
+CategoryAPITest1830006460 -> CreateCategoryOutput737426183[label="givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() -> from()"];
+CategoryAPITest1830006460 -> CreateCategoryUseCase737426183[label="createCategoryUseCase
+[0..1]"];
+CategoryAPITest1830006460 -> Notification1267800918[label="givenAInvalidName_whenCallsCreateCategory_thenShouldReturnNotification() -> create()"];
+CategoryJpaEntity1496822843 -> CategoryID536948461[label="toAggregate() -> from()"];
+CategoryValidator536948461 -> Category536948461[label="category
+[0..1]"];
+CreateCategoryUseCase737426183 -> DefaultCreateCategoryUseCase737426183[arrowhead=none, arrowtail=empty, dir=both];
+DefaultCreateCategoryUseCase737426183 -> Notification1267800918[label="execute() -> create()"];
+DefaultGetCategoryByIdUseCase2115087585 -> CategoryID536948461[label="execute() -> from()"];
+DefaultGetCategoryByIdUseCase2115087585 -> CategoryMySQLGateway604909548[arrowhead=none];
+DefaultListCategoriesUseCase1143358579 -> Pagination610231697[label="execute() -> map()"];
+DefaultUpdateCategoryUseCase223978298 -> CategoryID536948461[label="execute() -> from()"];
+DefaultUpdateCategoryUseCase223978298 -> Notification1267800918[label="execute() -> create()"];
+Entity2144456249 -> AggregateRoot2144456249[arrowhead=none, arrowtail=empty, dir=both];
+Entity2144456249 -> Category536948461[label="validate() -> validate()"];
+GetCategoryByIdUseCase2115087585 -> DefaultGetCategoryByIdUseCase2115087585[arrowhead=none, arrowtail=empty, dir=both];
+Identifier2144456249 -> CategoryID536948461[arrowhead=none, arrowtail=empty, dir=both];
+ListCategoriesUseCase1143358579 -> DefaultListCategoriesUseCase1143358579[arrowhead=none, arrowtail=empty, dir=both];
+Notification1267800918 -> Error1951487154[label="errors
+[0..*]"];
+Notification1267800918 -> ThrowsValidationHandler1267800918[arrowhead=none];
+UpdateCategoryUseCase223978298 -> DefaultUpdateCategoryUseCase223978298[arrowhead=none, arrowtail=empty, dir=both];
+UseCase29315845 -> CreateCategoryUseCase737426183[arrowhead=none, arrowtail=empty, dir=both];
+UseCase29315845 -> DefaultCreateCategoryUseCase737426183[label="execute() -> execute()"];
+UseCase29315845 -> DefaultGetCategoryByIdUseCase2115087585[label="execute() -> execute()"];
+UseCase29315845 -> DefaultListCategoriesUseCase1143358579[label="execute() -> execute()"];
+UseCase29315845 -> DefaultUpdateCategoryUseCase223978298[label="execute() -> execute()"];
+UseCase29315845 -> GetCategoryByIdUseCase2115087585[arrowhead=none, arrowtail=empty, dir=both];
+UseCase29315845 -> ListCategoriesUseCase1143358579[arrowhead=none, arrowtail=empty, dir=both];
+UseCase29315845 -> UpdateCategoryUseCase223978298[arrowhead=none, arrowtail=empty, dir=both];
+Validator1951487154 -> CategoryValidator536948461[arrowhead=none, arrowtail=empty, dir=both];
+ValueObject2144456249 -> Identifier2144456249[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml
