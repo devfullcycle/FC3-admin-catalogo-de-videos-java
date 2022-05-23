@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullcycle.admin.catalogo.ControllerTest;
 import com.fullcycle.admin.catalogo.application.category.create.CreateCategoryOutput;
 import com.fullcycle.admin.catalogo.application.category.create.CreateCategoryUseCase;
+import com.fullcycle.admin.catalogo.application.category.delete.DeleteCategoryUseCase;
 import com.fullcycle.admin.catalogo.application.category.retrieve.get.CategoryOutput;
 import com.fullcycle.admin.catalogo.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.fullcycle.admin.catalogo.application.category.update.UpdateCategoryOutput;
@@ -50,6 +51,9 @@ public class CategoryAPITest {
 
     @MockBean
     private UpdateCategoryUseCase updateCategoryUseCase;
+
+    @MockBean
+    private DeleteCategoryUseCase deleteCategoryUseCase;
 
     @Test
     public void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() throws Exception {
@@ -326,5 +330,28 @@ public class CategoryAPITest {
                         && Objects.equals(expectedDescription, cmd.description())
                         && Objects.equals(expectedIsActive, cmd.isActive())
         ));
+    }
+
+    @Test
+    public void givenAValidId_whenCallsDeleteCategory_shouldBeOK() throws Exception {
+        // given
+        final var expectedId = "123";
+
+        doNothing()
+                .when(deleteCategoryUseCase).execute(any());
+
+        // when
+        final var request = delete("/categories/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request)
+                .andDo(print());
+
+        // then
+        response.andExpect(status().isNotFound())
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE));
+
+        verify(deleteCategoryUseCase, times(1)).execute(eq(expectedId));
     }
 }
