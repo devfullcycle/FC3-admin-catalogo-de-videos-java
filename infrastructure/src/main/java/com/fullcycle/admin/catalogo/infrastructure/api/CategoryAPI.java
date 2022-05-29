@@ -47,7 +47,6 @@ public interface CategoryAPI {
 
     @GetMapping(
             value = "{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(summary = "Get a category by it's identifier")
@@ -73,7 +72,6 @@ public interface CategoryAPI {
 
     @DeleteMapping(
             value = "{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
