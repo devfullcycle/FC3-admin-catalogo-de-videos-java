@@ -44,6 +44,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 
+    implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
+
     testImplementation('org.flywaydb:flyway-core')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
