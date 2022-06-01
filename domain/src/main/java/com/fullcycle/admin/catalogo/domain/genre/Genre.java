@@ -37,13 +37,7 @@ public class Genre extends AggregateRoot<GenreID> {
         this.createdAt = aCreatedAt;
         this.updatedAt = aUpdatedAt;
         this.deletedAt = aDeletedAt;
-
-        final var notification = Notification.create();
-        validate(notification);
-
-        if (notification.hasError()) {
-            throw new NotificationException("Failed to create a Aggregate Genre", notification);
-        }
+        selfValidate();
     }
 
     public static Genre newGenre(final String aName, final boolean isActive) {
@@ -82,6 +76,35 @@ public class Genre extends AggregateRoot<GenreID> {
         new GenreValidator(this, handler).validate();
     }
 
+    public Genre update(final String aName, final boolean isActive, final List<CategoryID> categories) {
+        if (isActive) {
+            activate();
+        } else {
+            deactivate();
+        }
+        this.name = aName;
+        this.categories = new ArrayList<>(categories);
+        this.updatedAt = InstantUtils.now();
+        selfValidate();
+        return this;
+    }
+
+    public Genre deactivate() {
+        if (getDeletedAt() == null) {
+            this.deletedAt = InstantUtils.now();
+        }
+        this.active = false;
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
+
+    public Genre activate() {
+        this.deletedAt = null;
+        this.active = true;
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -106,19 +129,13 @@ public class Genre extends AggregateRoot<GenreID> {
         return deletedAt;
     }
 
-    public Genre deactivate() {
-        if (getDeletedAt() == null) {
-            this.deletedAt = InstantUtils.now();
+    private void selfValidate() {
+        final var notification = Notification.create();
+        validate(notification);
+
+        if (notification.hasError()) {
+            throw new NotificationException("Failed to create a Aggregate Genre", notification);
         }
-        this.active = false;
-        this.updatedAt = InstantUtils.now();
-        return this;
     }
 
-    public Genre activate() {
-        this.deletedAt = null;
-        this.active = true;
-        this.updatedAt = InstantUtils.now();
-        return this;
-    }
 }
