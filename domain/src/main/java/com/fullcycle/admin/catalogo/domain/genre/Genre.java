@@ -138,4 +138,21 @@ public class Genre extends AggregateRoot<GenreID> {
         }
     }
 
+    public Genre addCategory(final CategoryID aCategoryID) {
+        if (aCategoryID == null) {
+            return this;
+        }
+        this.categories.add(aCategoryID);
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
+
+    public Genre removeCategory(final CategoryID aCategoryID) {
+        if (aCategoryID == null) {
+            return this;
+        }
+        this.categories.remove(aCategoryID);
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
 }
