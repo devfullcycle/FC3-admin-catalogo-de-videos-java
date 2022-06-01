@@ -83,7 +83,7 @@ public class Genre extends AggregateRoot<GenreID> {
             deactivate();
         }
         this.name = aName;
-        this.categories = new ArrayList<>(categories);
+        this.categories = new ArrayList<>(categories != null ? categories : Collections.emptyList());
         this.updatedAt = InstantUtils.now();
         selfValidate();
         return this;
