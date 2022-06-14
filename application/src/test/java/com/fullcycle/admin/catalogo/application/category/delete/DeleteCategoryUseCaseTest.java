@@ -1,22 +1,21 @@
 package com.fullcycle.admin.catalogo.application.category.delete;
 
+import com.fullcycle.admin.catalogo.application.UseCaseTest;
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class DeleteCategoryUseCaseTest {
+public class DeleteCategoryUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultDeleteCategoryUseCase useCase;
@@ -24,9 +23,9 @@ public class DeleteCategoryUseCaseTest {
     @Mock
     private CategoryGateway categoryGateway;
 
-    @BeforeEach
-    void cleanUp() {
-        Mockito.reset(categoryGateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
     }
 
     @Test
