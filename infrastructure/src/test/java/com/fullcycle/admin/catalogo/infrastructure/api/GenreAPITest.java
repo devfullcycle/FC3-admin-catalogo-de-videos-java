@@ -311,7 +311,7 @@ public class GenreAPITest {
                 .thenReturn(new Pagination<>(expectedPage, expectedPerPage, expectedTotal, expectedItems));
 
         // when
-        final var aRequest = get("/gnres")
+        final var aRequest = get("/genres")
                 .queryParam("page", String.valueOf(expectedPage))
                 .queryParam("perPage", String.valueOf(expectedPerPage))
                 .queryParam("sort", expectedSort)
@@ -328,10 +328,10 @@ public class GenreAPITest {
                 .andExpect(jsonPath("$.total", equalTo(expectedTotal)))
                 .andExpect(jsonPath("$.items", hasSize(expectedItemsCount)))
                 .andExpect(jsonPath("$.items[0].id", equalTo(aGenre.getId().getValue())))
-                .andExpect(jsonPath("$.items[0].name", equalTo(aGenre.getId().getValue())))
+                .andExpect(jsonPath("$.items[0].name", equalTo(aGenre.getName())))
                 .andExpect(jsonPath("$.items[0].is_active", equalTo(aGenre.isActive())))
-                .andExpect(jsonPath("$.items[0].created_at", equalTo(aGenre.getCreatedAt())))
-                .andExpect(jsonPath("$.items[0].deleted_at", equalTo(aGenre.getDeletedAt())));
+                .andExpect(jsonPath("$.items[0].created_at", equalTo(aGenre.getCreatedAt().toString())))
+                .andExpect(jsonPath("$.items[0].deleted_at", equalTo(aGenre.getDeletedAt().toString())));
 
         verify(listGenreUseCase).execute(argThat(query ->
                 Objects.equals(expectedPage, query.page())
