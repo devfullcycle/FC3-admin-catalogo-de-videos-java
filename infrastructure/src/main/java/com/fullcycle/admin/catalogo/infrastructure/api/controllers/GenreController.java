@@ -2,12 +2,14 @@ package com.fullcycle.admin.catalogo.infrastructure.api.controllers;
 
 import com.fullcycle.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.fullcycle.admin.catalogo.application.genre.create.CreateGenreUseCase;
+import com.fullcycle.admin.catalogo.application.genre.retrieve.get.GetGenreByIdUseCase;
 import com.fullcycle.admin.catalogo.domain.pagination.Pagination;
 import com.fullcycle.admin.catalogo.infrastructure.api.GenreAPI;
 import com.fullcycle.admin.catalogo.infrastructure.genre.models.CreateGenreRequest;
 import com.fullcycle.admin.catalogo.infrastructure.genre.models.GenreListResponse;
 import com.fullcycle.admin.catalogo.infrastructure.genre.models.GenreResponse;
 import com.fullcycle.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
+import com.fullcycle.admin.catalogo.infrastructure.genre.presenters.GenreApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +19,14 @@ import java.net.URI;
 public class GenreController implements GenreAPI {
 
     private final CreateGenreUseCase createGenreUseCase;
+    private final GetGenreByIdUseCase getGenreByIdUseCase;
 
-    public GenreController(final CreateGenreUseCase createGenreUseCase) {
+    public GenreController(
+            final CreateGenreUseCase createGenreUseCase,
+            final GetGenreByIdUseCase getGenreByIdUseCase
+    ) {
         this.createGenreUseCase = createGenreUseCase;
+        this.getGenreByIdUseCase = getGenreByIdUseCase;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class GenreController implements GenreAPI {
 
     @Override
     public GenreResponse getById(final String id) {
-        return null;
+        return GenreApiPresenter.present(this.getGenreByIdUseCase.execute(id));
     }
 
     @Override
