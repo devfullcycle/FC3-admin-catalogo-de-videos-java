@@ -1,5 +1,7 @@
 package com.fullcycle.admin.catalogo.infrastructure.api.controllers;
 
+import com.fullcycle.admin.catalogo.application.genre.create.CreateGenreCommand;
+import com.fullcycle.admin.catalogo.application.genre.create.CreateGenreUseCase;
 import com.fullcycle.admin.catalogo.domain.pagination.Pagination;
 import com.fullcycle.admin.catalogo.infrastructure.api.GenreAPI;
 import com.fullcycle.admin.catalogo.infrastructure.genre.models.CreateGenreRequest;
@@ -9,12 +11,28 @@ import com.fullcycle.admin.catalogo.infrastructure.genre.models.UpdateGenreReque
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
 @RestController
 public class GenreController implements GenreAPI {
 
+    private final CreateGenreUseCase createGenreUseCase;
+
+    public GenreController(final CreateGenreUseCase createGenreUseCase) {
+        this.createGenreUseCase = createGenreUseCase;
+    }
+
     @Override
     public ResponseEntity<?> create(final CreateGenreRequest input) {
-        return null;
+        final var aCommand = CreateGenreCommand.with(
+                input.name(),
+                input.isActive(),
+                input.categories()
+        );
+
+        final var output = this.createGenreUseCase.execute(aCommand);
+
+        return ResponseEntity.created(URI.create("/genres/" + output.id())).body(output);
     }
 
     @Override
