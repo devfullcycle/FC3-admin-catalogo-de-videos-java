@@ -50,7 +50,7 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
         );
 
         when(castMemberGateway.findById(any()))
-                .thenReturn(Optional.of(aMember));
+                .thenReturn(Optional.of(CastMember.with(aMember)));
 
         when(castMemberGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
@@ -146,7 +146,7 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    public void givenAInvalidType_whenCallsUpdateCastMember_shouldThrowsNotificationException() {
+    public void givenAInvalidId_whenCallsUpdateCastMember_shouldThrowsNotFoundException() {
         // given
         final var aMember = CastMember.newMember("vin diesel", CastMemberType.DIRECTOR);
 
