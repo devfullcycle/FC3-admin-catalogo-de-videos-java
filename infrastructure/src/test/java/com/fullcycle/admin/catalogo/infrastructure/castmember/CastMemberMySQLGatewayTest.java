@@ -271,9 +271,9 @@ public class CastMemberMySQLGatewayTest {
 
     @ParameterizedTest
     @CsvSource({
-            "0,2,5,2,Jason Momoa;Kit Harington",
-            "1,2,5,2,Martin Scorsese;Quentin Tarantino",
-            "2,2,5,1,Vin Diesel",
+            "0,2,2,5,Jason Momoa;Kit Harington",
+            "1,2,2,5,Martin Scorsese;Quentin Tarantino",
+            "2,2,1,5,Vin Diesel",
     })
     public void givenAValidPagination_whenCallsFindAll_shouldReturnPaginated(
             final int expectedPage,
