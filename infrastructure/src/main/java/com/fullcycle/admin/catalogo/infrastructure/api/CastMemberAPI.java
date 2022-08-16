@@ -1,5 +1,6 @@
 package com.fullcycle.admin.catalogo.infrastructure.api;
 
+import com.fullcycle.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,5 +25,5 @@ public interface CastMemberAPI {
             @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    ResponseEntity<?> create(@RequestBody Object input);
+    ResponseEntity<?> create(@RequestBody CreateCastMemberRequest input);
 }
