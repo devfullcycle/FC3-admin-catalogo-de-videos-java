@@ -149,7 +149,7 @@ public class CastMemberAPITest {
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(expectedId)))
                 .andExpect(jsonPath("$.name", equalTo(expectedName)))
-                .andExpect(jsonPath("$.type", equalTo(expectedType)))
+                .andExpect(jsonPath("$.type", equalTo(expectedType.name())))
                 .andExpect(jsonPath("$.created_at", equalTo(aMember.getCreatedAt().toString())))
                 .andExpect(jsonPath("$.updated_at", equalTo(aMember.getUpdatedAt().toString())));
 
@@ -166,7 +166,7 @@ public class CastMemberAPITest {
                 .thenThrow(NotFoundException.with(CastMember.class, expectedId));
 
         // when
-        final var aRequest = get("/cast_members/{id}", expectedId)
+        final var aRequest = get("/cast_members/{id}", expectedId.getValue())
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
