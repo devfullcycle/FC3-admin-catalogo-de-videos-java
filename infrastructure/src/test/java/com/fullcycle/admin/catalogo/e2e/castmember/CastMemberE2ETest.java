@@ -194,4 +194,45 @@ public class CastMemberE2ETest implements MockDsl {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message", equalTo("CastMember with ID 123 was not found")));
     }
+
+    @Test
+    public void asACatalogAdminIShouldBeAbleToUpdateACastMemberByItsIdentifier() throws Exception {
+        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(0, castMemberRepository.count());
+
+        final var expectedName = "Vin Diesel";
+        final var expectedType = CastMemberType.ACTOR;
+
+        givenACastMember(Fixture.name(), Fixture.CastMember.type());
+        final var actualId = givenACastMember("vin d", CastMemberType.DIRECTOR);
+
+        updateACastMember(actualId, expectedName, expectedType)
+                .andExpect(status().isOk());
+
+        final var actualMember = retrieveACastMember(actualId);
+
+        Assertions.assertEquals(expectedName, actualMember.name());
+        Assertions.assertEquals(expectedType.name(), actualMember.type());
+        Assertions.assertNotNull(actualMember.createdAt());
+        Assertions.assertNotNull(actualMember.updatedAt());
+        Assertions.assertEquals(actualMember.createdAt(), actualMember.updatedAt());
+    }
+
+    @Test
+    public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByUpdatingACastMemberWithInvalidValue() throws Exception {
+        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(0, castMemberRepository.count());
+
+        final var expectedName = "";
+        final var expectedType = CastMemberType.ACTOR;
+        final var expectedErrorMessage = "'name' should not be empty";
+
+        givenACastMember(Fixture.name(), Fixture.CastMember.type());
+        final var actualId = givenACastMember("vin d", CastMemberType.DIRECTOR);
+
+        updateACastMember(actualId, expectedName, expectedType)
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
+    }
 }
