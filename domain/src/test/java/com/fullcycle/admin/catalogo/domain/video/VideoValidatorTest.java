@@ -33,7 +33,7 @@ public class VideoValidatorTest {
         final var expectedMembers = Set.of(CastMemberID.unique());
 
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorMessage = "'title' should not be null";
 
         final var actualVideo = Video.newVideo(
                 expectedTitle,
@@ -81,7 +81,7 @@ public class VideoValidatorTest {
         final var expectedMembers = Set.of(CastMemberID.unique());
 
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'name' should not be empty";
+        final var expectedErrorMessage = "'title' should not be empty";
 
         final var actualVideo = Video.newVideo(
                 expectedTitle,
@@ -115,6 +115,7 @@ public class VideoValidatorTest {
         final var expectedTitle = """
                 Disclaimer: o estudo de caso apresentado tem fins educacionais e representa nossas opiniões pessoais.
                 Esse vídeo faz parte da Imersão Full Stack && Full Cycle.
+                Esse vídeo faz parte da Imersão Full Stack && Full Cycle.
                 Para acessar todas as aulas, lives e desafios, acesse:
                 https://imersao.fullcycle.com.br/
                 """;
@@ -134,7 +135,7 @@ public class VideoValidatorTest {
         final var expectedMembers = Set.of(CastMemberID.unique());
 
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'name' must be between 1 and 255 characters";
+        final var expectedErrorMessage = "'title' must be between 1 and 255 characters";
 
         final var actualVideo = Video.newVideo(
                 expectedTitle,
