@@ -28,8 +28,11 @@ public class DefaultVideoGateway implements VideoGateway {
     }
 
     @Override
-    public void deleteById(VideoID anId) {
-
+    public void deleteById(final VideoID anId) {
+        final var aVideoId = anId.getValue();
+        if (this.videoRepository.existsById(aVideoId)) {
+            this.videoRepository.deleteById(aVideoId);
+        }
     }
 
     @Override
