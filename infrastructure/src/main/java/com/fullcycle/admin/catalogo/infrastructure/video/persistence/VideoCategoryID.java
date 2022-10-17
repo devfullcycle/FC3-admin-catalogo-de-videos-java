@@ -10,20 +10,20 @@ import java.util.UUID;
 public class VideoCategoryID implements Serializable {
 
     @Column(name = "video_id", nullable = false)
-    private UUID videoId;
+    private String videoId;
 
     @Column(name = "category_id", nullable = false)
-    private UUID categoryId;
+    private String categoryId;
 
     public VideoCategoryID() {
     }
 
-    private VideoCategoryID(final UUID videoId, final UUID categoryId) {
+    private VideoCategoryID(final String videoId, final String categoryId) {
         this.videoId = videoId;
         this.categoryId = categoryId;
     }
 
-    public static VideoCategoryID from(final UUID videoId, final UUID categoryId) {
+    public static VideoCategoryID from(final String videoId, final String categoryId) {
         return new VideoCategoryID(videoId, categoryId);
     }
 
@@ -40,20 +40,20 @@ public class VideoCategoryID implements Serializable {
         return Objects.hash(getVideoId(), getCategoryId());
     }
 
-    public UUID getVideoId() {
+    public String getVideoId() {
         return videoId;
     }
 
-    public VideoCategoryID setVideoId(UUID videoId) {
+    public VideoCategoryID setVideoId(String videoId) {
         this.videoId = videoId;
         return this;
     }
 
-    public UUID getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public VideoCategoryID setCategoryId(UUID categoryId) {
+    public VideoCategoryID setCategoryId(String categoryId) {
         this.categoryId = categoryId;
         return this;
     }

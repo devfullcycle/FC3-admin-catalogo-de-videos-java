@@ -4,7 +4,6 @@ import com.fullcycle.admin.catalogo.domain.castmember.CastMemberID;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "VideoCastMember")
 @Table(name = "videos_cast_members")
@@ -27,7 +26,7 @@ public class VideoCastMemberJpaEntity {
 
     public static VideoCastMemberJpaEntity from(final VideoJpaEntity entity, final CastMemberID castMemberID) {
         return new VideoCastMemberJpaEntity(
-                VideoCastMemberID.from(entity.getId(), UUID.fromString(castMemberID.getValue())),
+                VideoCastMemberID.from(entity.getId(), castMemberID.getValue()),
                 entity
         );
     }
