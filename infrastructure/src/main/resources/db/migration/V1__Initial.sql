@@ -1,5 +1,5 @@
 
-CREATE TABLE category (
+CREATE TABLE categories (
     id CHAR(32) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(4000),
