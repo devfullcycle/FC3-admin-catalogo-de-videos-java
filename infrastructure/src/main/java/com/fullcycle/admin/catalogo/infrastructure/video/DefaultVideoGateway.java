@@ -12,8 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+import static com.fullcycle.admin.catalogo.domain.utils.CollectionUtils.mapTo;
+import static com.fullcycle.admin.catalogo.domain.utils.CollectionUtils.nullIfEmpty;
 
 public class DefaultVideoGateway implements VideoGateway {
 
@@ -60,9 +61,9 @@ public class DefaultVideoGateway implements VideoGateway {
 
         final var actualPage = this.videoRepository.findAll(
                 SqlUtils.like(aQuery.terms()),
-                toString(aQuery.castMembers()),
-                toString(aQuery.categories()),
-                toString(aQuery.genres()),
+                nullIfEmpty(mapTo(aQuery.castMembers(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.categories(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.genres(), Identifier::getValue)),
                 page
         );
 
@@ -77,15 +78,5 @@ public class DefaultVideoGateway implements VideoGateway {
     private Video save(final Video aVideo) {
         return this.videoRepository.save(VideoJpaEntity.from(aVideo))
                 .toAggregate();
-    }
-
-    private Set<String> toString(final Set<? extends Identifier> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return null;
-        }
-
-        return ids.stream()
-                .map(Identifier::getValue)
-                .collect(Collectors.toSet());
     }
 }
