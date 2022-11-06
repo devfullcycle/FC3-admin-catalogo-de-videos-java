@@ -11,6 +11,7 @@ import com.fullcycle.admin.catalogo.domain.category.CategoryID;
 import com.fullcycle.admin.catalogo.domain.genre.Genre;
 import com.fullcycle.admin.catalogo.domain.genre.GenreGateway;
 import com.fullcycle.admin.catalogo.domain.genre.GenreID;
+import com.fullcycle.admin.catalogo.domain.pagination.SearchQuery;
 import com.fullcycle.admin.catalogo.domain.video.*;
 import com.fullcycle.admin.catalogo.infrastructure.video.persistence.VideoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -700,27 +701,57 @@ public class DefaultVideoGatewayTest {
 
     @ParameterizedTest
     @CsvSource({
-            "0,2,2,5,Ação;Comédia romântica",
-            "1,2,2,5,Drama;Ficção científica",
-            "2,2,1,5,Terror",
+            "0,2,2,4,21.1 Implementação dos testes integrados do findAll;Aula de empreendedorismo",
+            "1,2,2,4,Não cometa esses erros ao trabalhar com Microsserviços;System Design no Mercado Livre na prática",
     })
     public void givenAValidPaging_whenCallsFindAll_shouldReturnPaged(
             final int expectedPage,
             final int expectedPerPage,
             final int expectedItemsCount,
             final long expectedTotal,
-            final String expectedGenres
+            final String expectedVideos
     ) {
+        // given
+        mockVideos();
 
+        final var expectedTerms = "";
+        final var expectedSort = "title";
+        final var expectedDirection = "asc";
+
+        final var aQuery = new VideoSearchQuery(
+                expectedPage,
+                expectedPerPage,
+                expectedTerms,
+                expectedSort,
+                expectedDirection,
+                Set.of(),
+                Set.of(),
+                Set.of()
+        );
+
+        // when
+        final var actualPage = videoGateway.findAll(aQuery);
+
+        // then
+        Assertions.assertEquals(expectedPage, actualPage.currentPage());
+        Assertions.assertEquals(expectedPerPage, actualPage.perPage());
+        Assertions.assertEquals(expectedTotal, actualPage.total());
+        Assertions.assertEquals(expectedItemsCount, actualPage.items().size());
+
+        int index = 0;
+        for (final var expectedTitle : expectedVideos.split(";")) {
+            final var actualTitle = actualPage.items().get(index).title();
+            Assertions.assertEquals(expectedTitle, actualTitle);
+            index++;
+        }
     }
 
     @ParameterizedTest
     @CsvSource({
-            "aç,0,10,1,1,Ação",
-            "dr,0,10,1,1,Drama",
-            "com,0,10,1,1,Comédia romântica",
-            "cien,0,10,1,1,Ficção científica",
-            "terr,0,10,1,1,Terror",
+            "system,0,10,1,1,System Design no Mercado Livre na prática",
+            "microsser,0,10,1,1,Não cometa esses erros ao trabalhar com Microsserviços",
+            "empreendedorismo,0,10,1,1,Aula de empreendedorismo",
+            "21,0,10,1,1,21.1 Implementação dos testes integrados do findAll",
     })
     public void givenAValidTerm_whenCallsFindAll_shouldReturnFiltered(
             final String expectedTerms,
@@ -728,17 +759,42 @@ public class DefaultVideoGatewayTest {
             final int expectedPerPage,
             final int expectedItemsCount,
             final long expectedTotal,
-            final String expectedGenreName
+            final String expectedVideo
     ) {
+        // given
+        mockVideos();
 
+        final var expectedSort = "title";
+        final var expectedDirection = "asc";
+
+        final var aQuery = new VideoSearchQuery(
+                expectedPage,
+                expectedPerPage,
+                expectedTerms,
+                expectedSort,
+                expectedDirection,
+                Set.of(),
+                Set.of(),
+                Set.of()
+        );
+
+        // when
+        final var actualPage = videoGateway.findAll(aQuery);
+
+        // then
+        Assertions.assertEquals(expectedPage, actualPage.currentPage());
+        Assertions.assertEquals(expectedPerPage, actualPage.perPage());
+        Assertions.assertEquals(expectedTotal, actualPage.total());
+        Assertions.assertEquals(expectedItemsCount, actualPage.items().size());
+        Assertions.assertEquals(expectedVideo, actualPage.items().get(0).title());
     }
 
     @ParameterizedTest
     @CsvSource({
-            "name,asc,0,10,5,5,Ação",
-            "name,desc,0,10,5,5,Terror",
-            "createdAt,asc,0,10,5,5,Comédia romântica",
-            "createdAt,desc,0,10,5,5,Ficção científica",
+            "title,asc,0,10,4,4,21.1 Implementação dos testes integrados do findAll",
+            "title,desc,0,10,4,4,System Design no Mercado Livre na prática",
+            "createdAt,asc,0,10,4,4,System Design no Mercado Livre na prática",
+            "createdAt,desc,0,10,4,4,Aula de empreendedorismo",
     })
     public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnOrdered(
             final String expectedSort,
@@ -747,9 +803,33 @@ public class DefaultVideoGatewayTest {
             final int expectedPerPage,
             final int expectedItemsCount,
             final long expectedTotal,
-            final String expectedGenreName
+            final String expectedVideo
     ) {
+        // given
+        mockVideos();
 
+        final var expectedTerms = "";
+
+        final var aQuery = new VideoSearchQuery(
+                expectedPage,
+                expectedPerPage,
+                expectedTerms,
+                expectedSort,
+                expectedDirection,
+                Set.of(),
+                Set.of(),
+                Set.of()
+        );
+
+        // when
+        final var actualPage = videoGateway.findAll(aQuery);
+
+        // then
+        Assertions.assertEquals(expectedPage, actualPage.currentPage());
+        Assertions.assertEquals(expectedPerPage, actualPage.perPage());
+        Assertions.assertEquals(expectedTotal, actualPage.total());
+        Assertions.assertEquals(expectedItemsCount, actualPage.items().size());
+        Assertions.assertEquals(expectedVideo, actualPage.items().get(0).title());
     }
 
     private void mockVideos() {
