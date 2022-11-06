@@ -10,10 +10,30 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.vavr:vavr:0.10.4'
+
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 test {
     useJUnitPlatform()
+}
+
+configurations {
+    testClasses {
+        extendsFrom(testImplementation)
+    }
+}
+
+task testJar(type: Jar) {
+    archiveClassifier.set('test')
+    from sourceSets.test.output
+}
+
+artifacts {
+    testClasses testJar
 }
