@@ -1,7 +1,7 @@
 package com.fullcycle.admin.catalogo.application.video.update;
 
-import com.fullcycle.admin.catalogo.domain.Fixture;
 import com.fullcycle.admin.catalogo.application.UseCaseTest;
+import com.fullcycle.admin.catalogo.domain.Fixture;
 import com.fullcycle.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.fullcycle.admin.catalogo.domain.castmember.CastMemberID;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
@@ -1119,6 +1119,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         when(mediaResourceGateway.storeAudioVideo(any(), any())).thenAnswer(t -> {
             final var resource = t.getArgument(1, Resource.class);
             return AudioVideoMedia.with(
+                    IdUtils.uuid(),
                     IdUtils.uuid(),
                     resource.name(),
                     "/img",

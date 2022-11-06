@@ -1014,6 +1014,7 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
             final var resource = t.getArgument(1, Resource.class);
             return AudioVideoMedia.with(
                     IdUtils.uuid(),
+                    IdUtils.uuid(),
                     resource.name(),
                     "/img",
                     "",
