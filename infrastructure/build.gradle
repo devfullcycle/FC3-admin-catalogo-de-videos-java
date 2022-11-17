@@ -33,6 +33,9 @@ dependencies {
 
     implementation('io.vavr:vavr:0.10.4')
 
+    implementation('com.google.cloud:google-cloud-storage:2.14.0')
+    implementation 'com.google.guava:guava:31.1-jre'
+
     implementation('mysql:mysql-connector-java')
 
     implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')

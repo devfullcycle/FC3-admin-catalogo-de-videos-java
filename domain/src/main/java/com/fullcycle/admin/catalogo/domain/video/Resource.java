@@ -7,19 +7,23 @@ import java.util.Objects;
 public class Resource extends ValueObject {
 
     private final byte[] content;
+    private final String checksum;
     private final String contentType;
     private final String name;
-    private final Type type;
 
-    private Resource(final byte[] content, final String contentType, final String name, final Type type) {
+    private Resource(final byte[] content, final String checksum, final String contentType, final String name) {
         this.content = Objects.requireNonNull(content);
+        this.checksum = Objects.requireNonNull(checksum);
         this.contentType = Objects.requireNonNull(contentType);
         this.name = Objects.requireNonNull(name);
-        this.type = Objects.requireNonNull(type);
     }
 
-    public static Resource with(final byte[] content, final String contentType, final String name, final Type type) {
-        return new Resource(content, contentType, name, type);
+    public static Resource with(final byte[] content, final String checksum, final String contentType, final String name) {
+        return new Resource(content, checksum, contentType, name);
+    }
+
+    public String checksum() {
+        return checksum;
     }
 
     public byte[] content() {
@@ -34,15 +38,4 @@ public class Resource extends ValueObject {
         return name;
     }
 
-    public Type type() {
-        return type;
-    }
-
-    public enum Type {
-        VIDEO,
-        TRAILER,
-        BANNER,
-        THUMBNAIL,
-        THUMBNAIL_HALF
-    }
 }

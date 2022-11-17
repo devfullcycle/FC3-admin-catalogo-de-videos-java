@@ -1,3 +1,17 @@
+google:
+  cloud:
+    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
+    project-id: ${GOOGLE_CLOUD_PROJECT}
+    storage:
+      adm-videos:
+        bucket: catalogo_videos
+        connect-timeout: 250
+        read-timeout: 5000
+        retry-delay: 50
+        retry-max-delay: 50
+        retry-max-attempts: 2
+        retry-multiplier: 1.0
+
 server:
   port: 8080
   servlet:
