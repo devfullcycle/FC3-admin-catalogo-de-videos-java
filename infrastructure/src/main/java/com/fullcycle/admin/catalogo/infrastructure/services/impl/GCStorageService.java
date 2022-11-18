@@ -7,6 +7,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 public class GCStorageService implements StorageService {
@@ -30,15 +31,14 @@ public class GCStorageService implements StorageService {
     }
 
     @Override
-    public Resource get(final String id) {
-        final var blob = this.storage.get(this.bucket, id);
-
-        return Resource.with(
-                blob.getContent(),
-                blob.getCrc32cToHexString(),
-                blob.getContentType(),
-                blob.getName()
-        );
+    public Optional<Resource> get(final String id) {
+        return Optional.ofNullable(this.storage.get(this.bucket, id))
+                .map(blob -> Resource.with(
+                        blob.getContent(),
+                        blob.getCrc32cToHexString(),
+                        blob.getContentType(),
+                        blob.getName()
+                ));
     }
 
     @Override
