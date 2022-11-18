@@ -52,7 +52,7 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
         when(videoGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
 
-        final var aCmd = UpdateMediaCommand.with(
+        final var aCmd = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 expectedMedia.id(),
@@ -84,6 +84,57 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
     }
 
     @Test
+    public void givenCommandForVideo_whenIsValidForProcessing_shouldUpdateStatusAndEncodedLocation() {
+        // given
+        final var expectedStatus = MediaStatus.PROCESSING;
+        final String expectedFolder = null;
+        final String expectedFilename = null;
+        final var expectedType = VideoMediaType.VIDEO;
+        final var expectedMedia = Fixture.Videos.audioVideo(expectedType);
+
+        final var aVideo = Fixture.Videos.systemDesign()
+                .setVideo(expectedMedia);
+
+        final var expectedId = aVideo.getId();
+
+        when(videoGateway.findById(any()))
+                .thenReturn(Optional.of(aVideo));
+
+        when(videoGateway.update(any()))
+                .thenAnswer(returnsFirstArg());
+
+        final var aCmd = UpdateMediaStatusCommand.with(
+                expectedStatus,
+                expectedId.getValue(),
+                expectedMedia.id(),
+                expectedFolder,
+                expectedFilename
+        );
+
+        // when
+        this.useCase.execute(aCmd);
+
+        // then
+        verify(videoGateway, times(1)).findById(eq(expectedId));
+
+        final var captor = ArgumentCaptor.forClass(Video.class);
+
+        verify(videoGateway, times(1)).update(captor.capture());
+
+        final var actualVideo = captor.getValue();
+
+        Assertions.assertTrue(actualVideo.getTrailer().isEmpty());
+
+        final var actualVideoMedia = actualVideo.getVideo().get();
+
+        Assertions.assertEquals(expectedMedia.id(), actualVideoMedia.id());
+        Assertions.assertEquals(expectedMedia.rawLocation(), actualVideoMedia.rawLocation());
+        Assertions.assertEquals(expectedMedia.checksum(), actualVideoMedia.checksum());
+        Assertions.assertEquals(expectedStatus, actualVideoMedia.status());
+        Assertions.assertTrue(actualVideoMedia.encodedLocation().isBlank());
+    }
+
+    @Test
     public void givenCommandForTrailer_whenIsValid_shouldUpdateStatusAndEncodedLocation() {
         // given
         final var expectedStatus = MediaStatus.COMPLETED;
@@ -103,7 +154,7 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
         when(videoGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
 
-        final var aCmd = UpdateMediaCommand.with(
+        final var aCmd = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 expectedMedia.id(),
@@ -135,6 +186,57 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
     }
 
     @Test
+    public void givenCommandForTrailer_whenIsValidForProcessing_shouldUpdateStatusAndEncodedLocation() {
+        // given
+        final var expectedStatus = MediaStatus.PROCESSING;
+        final String expectedFolder = null;
+        final String expectedFilename = null;
+        final var expectedType = VideoMediaType.TRAILER;
+        final var expectedMedia = Fixture.Videos.audioVideo(expectedType);
+
+        final var aVideo = Fixture.Videos.systemDesign()
+                .setTrailer(expectedMedia);
+
+        final var expectedId = aVideo.getId();
+
+        when(videoGateway.findById(any()))
+                .thenReturn(Optional.of(aVideo));
+
+        when(videoGateway.update(any()))
+                .thenAnswer(returnsFirstArg());
+
+        final var aCmd = UpdateMediaStatusCommand.with(
+                expectedStatus,
+                expectedId.getValue(),
+                expectedMedia.id(),
+                expectedFolder,
+                expectedFilename
+        );
+
+        // when
+        this.useCase.execute(aCmd);
+
+        // then
+        verify(videoGateway, times(1)).findById(eq(expectedId));
+
+        final var captor = ArgumentCaptor.forClass(Video.class);
+
+        verify(videoGateway, times(1)).update(captor.capture());
+
+        final var actualVideo = captor.getValue();
+
+        Assertions.assertTrue(actualVideo.getVideo().isEmpty());
+
+        final var actualVideoMedia = actualVideo.getTrailer().get();
+
+        Assertions.assertEquals(expectedMedia.id(), actualVideoMedia.id());
+        Assertions.assertEquals(expectedMedia.rawLocation(), actualVideoMedia.rawLocation());
+        Assertions.assertEquals(expectedMedia.checksum(), actualVideoMedia.checksum());
+        Assertions.assertEquals(expectedStatus, actualVideoMedia.status());
+        Assertions.assertTrue(actualVideoMedia.encodedLocation().isBlank());
+    }
+
+    @Test
     public void givenCommandForTrailer_whenIsInvalid_shouldDoNothing() {
         // given
         final var expectedStatus = MediaStatus.COMPLETED;
@@ -151,7 +253,7 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.of(aVideo));
 
-        final var aCmd = UpdateMediaCommand.with(
+        final var aCmd = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 "randomId",
