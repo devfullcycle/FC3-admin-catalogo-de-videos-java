@@ -126,12 +126,12 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
         final var expectedType = VideoMediaType.BANNER;
         final var expectedResource = Fixture.Videos.resource(expectedType);
         final var expectedVideoResource = VideoResource.with(expectedType, expectedResource);
-        final var expectedMedia = Fixture.Videos.audioVideo(expectedType);
+        final var expectedMedia = Fixture.Videos.image(expectedType);
 
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.of(aVideo));
 
-        when(mediaResourceGateway.storeAudioVideo(any(), any()))
+        when(mediaResourceGateway.storeImage(any(), any()))
                 .thenReturn(expectedMedia);
 
         when(videoGateway.update(any()))
@@ -148,7 +148,7 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
 
         verify(videoGateway, times(1)).findById(eq(expectedId));
 
-        verify(mediaResourceGateway, times(1)).storeAudioVideo(eq(expectedId), eq(expectedVideoResource));
+        verify(mediaResourceGateway, times(1)).storeImage(eq(expectedId), eq(expectedVideoResource));
 
         verify(videoGateway, times(1)).update(argThat(actualVideo ->
                 actualVideo.getVideo().isEmpty()
@@ -167,12 +167,12 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
         final var expectedType = VideoMediaType.THUMBNAIL;
         final var expectedResource = Fixture.Videos.resource(expectedType);
         final var expectedVideoResource = VideoResource.with(expectedType, expectedResource);
-        final var expectedMedia = Fixture.Videos.audioVideo(expectedType);
+        final var expectedMedia = Fixture.Videos.image(expectedType);
 
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.of(aVideo));
 
-        when(mediaResourceGateway.storeAudioVideo(any(), any()))
+        when(mediaResourceGateway.storeImage(any(), any()))
                 .thenReturn(expectedMedia);
 
         when(videoGateway.update(any()))
@@ -189,7 +189,7 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
 
         verify(videoGateway, times(1)).findById(eq(expectedId));
 
-        verify(mediaResourceGateway, times(1)).storeAudioVideo(eq(expectedId), eq(expectedVideoResource));
+        verify(mediaResourceGateway, times(1)).storeImage(eq(expectedId), eq(expectedVideoResource));
 
         verify(videoGateway, times(1)).update(argThat(actualVideo ->
                 actualVideo.getVideo().isEmpty()
@@ -208,12 +208,12 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
         final var expectedType = VideoMediaType.THUMBNAIL_HALF;
         final var expectedResource = Fixture.Videos.resource(expectedType);
         final var expectedVideoResource = VideoResource.with(expectedType, expectedResource);
-        final var expectedMedia = Fixture.Videos.audioVideo(expectedType);
+        final var expectedMedia = Fixture.Videos.image(expectedType);
 
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.of(aVideo));
 
-        when(mediaResourceGateway.storeAudioVideo(any(), any()))
+        when(mediaResourceGateway.storeImage(any(), any()))
                 .thenReturn(expectedMedia);
 
         when(videoGateway.update(any()))
@@ -230,7 +230,7 @@ public class UploadMediaUseCaseTest extends UseCaseTest {
 
         verify(videoGateway, times(1)).findById(eq(expectedId));
 
-        verify(mediaResourceGateway, times(1)).storeAudioVideo(eq(expectedId), eq(expectedVideoResource));
+        verify(mediaResourceGateway, times(1)).storeImage(eq(expectedId), eq(expectedVideoResource));
 
         verify(videoGateway, times(1)).update(argThat(actualVideo ->
                 actualVideo.getVideo().isEmpty()
