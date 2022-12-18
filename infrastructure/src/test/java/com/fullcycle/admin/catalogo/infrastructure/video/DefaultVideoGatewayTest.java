@@ -11,7 +11,6 @@ import com.fullcycle.admin.catalogo.domain.category.CategoryID;
 import com.fullcycle.admin.catalogo.domain.genre.Genre;
 import com.fullcycle.admin.catalogo.domain.genre.GenreGateway;
 import com.fullcycle.admin.catalogo.domain.genre.GenreID;
-import com.fullcycle.admin.catalogo.domain.pagination.SearchQuery;
 import com.fullcycle.admin.catalogo.domain.video.*;
 import com.fullcycle.admin.catalogo.infrastructure.video.persistence.VideoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -115,11 +114,11 @@ public class DefaultVideoGatewayTest {
                         expectedGenres,
                         expectedMembers
                 )
-                .setVideo(expectedVideo)
-                .setTrailer(expectedTrailer)
-                .setBanner(expectedBanner)
-                .setThumbnail(expectedThumb)
-                .setThumbnailHalf(expectedThumbHalf);
+                .updateVideoMedia(expectedVideo)
+                .updateTrailerMedia(expectedTrailer)
+                .updateBannerMedia(expectedBanner)
+                .updateThumbnailMedia(expectedThumb)
+                .updateThumbnailHalfMedia(expectedThumbHalf);
 
         // when
         final var actualVideo = videoGateway.create(aVideo);
@@ -289,11 +288,11 @@ public class DefaultVideoGatewayTest {
                         expectedGenres,
                         expectedMembers
                 )
-                .setVideo(expectedVideo)
-                .setTrailer(expectedTrailer)
-                .setBanner(expectedBanner)
-                .setThumbnail(expectedThumb)
-                .setThumbnailHalf(expectedThumbHalf);
+                .updateVideoMedia(expectedVideo)
+                .updateTrailerMedia(expectedTrailer)
+                .updateBannerMedia(expectedBanner)
+                .updateThumbnailMedia(expectedThumb)
+                .updateThumbnailHalfMedia(expectedThumbHalf);
 
         // when
         final var actualVideo = videoGateway.update(updatedVideo);
@@ -437,11 +436,11 @@ public class DefaultVideoGatewayTest {
                                 expectedGenres,
                                 expectedMembers
                         )
-                        .setVideo(expectedVideo)
-                        .setTrailer(expectedTrailer)
-                        .setBanner(expectedBanner)
-                        .setThumbnail(expectedThumb)
-                        .setThumbnailHalf(expectedThumbHalf)
+                        .updateVideoMedia(expectedVideo)
+                        .updateTrailerMedia(expectedTrailer)
+                        .updateBannerMedia(expectedBanner)
+                        .updateThumbnailMedia(expectedThumb)
+                        .updateThumbnailHalfMedia(expectedThumbHalf)
         );
 
         // when
