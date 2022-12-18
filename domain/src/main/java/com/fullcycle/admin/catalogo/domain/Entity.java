@@ -34,7 +34,7 @@ public abstract class Entity<ID extends Identifier> {
         return Collections.unmodifiableList(domainEvents);
     }
 
-    public void publishDomainEvents(final DomainEventPublisher publisher) {
+    public void publishDomainEvents(final DomainEventPublisher<DomainEvent> publisher) {
         if (publisher == null) {
             return;
         }
