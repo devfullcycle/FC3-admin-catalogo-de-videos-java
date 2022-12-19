@@ -20,7 +20,7 @@ public class VideoEncoderListener {
 
     private static final Logger log = LoggerFactory.getLogger(VideoEncoderListener.class);
 
-    private static final String LISTENER_ID = "videoEncodedListener";
+    static final String LISTENER_ID = "videoEncodedListener";
 
     private final UpdateMediaStatusUseCase updateMediaStatusUseCase;
 

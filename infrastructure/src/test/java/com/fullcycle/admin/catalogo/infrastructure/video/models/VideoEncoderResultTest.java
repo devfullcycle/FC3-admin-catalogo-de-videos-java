@@ -38,7 +38,7 @@ public class VideoEncoderResultTest {
                         "file_path": "%s"
                       }
                     }
-                """.formatted(expectedId, expectedOutputBucket, expectedStatus,
+                """.formatted(expectedStatus, expectedId, expectedOutputBucket,
                 expectedEncoderVideoFolder, expectedResourceId, expectedFilePath);
 
         // when
