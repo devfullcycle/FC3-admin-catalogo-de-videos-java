@@ -1,5 +1,6 @@
 package com.fullcycle.admin.catalogo.infrastructure.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullcycle.admin.catalogo.ControllerTest;
 import com.fullcycle.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.fullcycle.admin.catalogo.application.video.create.CreateVideoOutput;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Year;
 import java.util.Set;
@@ -118,10 +118,10 @@ public class VideoAPITest {
         Assertions.assertEquals(expectedCategories, actualCmd.categories());
         Assertions.assertEquals(expectedGenres, actualCmd.genres());
         Assertions.assertEquals(expectedMembers, actualCmd.members());
-        Assertions.assertEquals(expectedVideo.getName(), actualCmd.getVideo().get().name());
-        Assertions.assertEquals(expectedTrailer.getName(), actualCmd.getTrailer().get().name());
-        Assertions.assertEquals(expectedBanner.getName(), actualCmd.getBanner().get().name());
-        Assertions.assertEquals(expectedThumb.getName(), actualCmd.getThumbnail().get().name());
-        Assertions.assertEquals(expectedThumbHalf.getName(), actualCmd.getThumbnailHalf().get().name());
+        Assertions.assertEquals(expectedVideo.getOriginalFilename(), actualCmd.getVideo().get().name());
+        Assertions.assertEquals(expectedTrailer.getOriginalFilename(), actualCmd.getTrailer().get().name());
+        Assertions.assertEquals(expectedBanner.getOriginalFilename(), actualCmd.getBanner().get().name());
+        Assertions.assertEquals(expectedThumb.getOriginalFilename(), actualCmd.getThumbnail().get().name());
+        Assertions.assertEquals(expectedThumbHalf.getOriginalFilename(), actualCmd.getThumbnailHalf().get().name());
     }
 }
