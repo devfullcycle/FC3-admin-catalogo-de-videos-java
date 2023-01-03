@@ -7,6 +7,7 @@ import com.fullcycle.admin.catalogo.application.video.create.CreateVideoOutput;
 import com.fullcycle.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.fullcycle.admin.catalogo.domain.Fixture;
 import com.fullcycle.admin.catalogo.domain.video.VideoID;
+import com.fullcycle.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
