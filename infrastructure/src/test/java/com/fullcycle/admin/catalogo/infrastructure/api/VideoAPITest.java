@@ -20,6 +20,7 @@ import com.fullcycle.admin.catalogo.domain.video.Video;
 import com.fullcycle.admin.catalogo.domain.video.VideoID;
 import com.fullcycle.admin.catalogo.domain.video.VideoMediaType;
 import com.fullcycle.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
+import com.fullcycle.admin.catalogo.infrastructure.video.models.UpdateVideoRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
