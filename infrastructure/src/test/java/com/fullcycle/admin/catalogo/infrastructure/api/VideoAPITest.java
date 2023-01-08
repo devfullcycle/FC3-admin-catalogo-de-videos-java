@@ -583,8 +583,8 @@ public class VideoAPITest {
         Assertions.assertEquals(expectedDirection, actualQuery.direction());
         Assertions.assertEquals(expectedSort, actualQuery.sort());
         Assertions.assertEquals(expectedTerms, actualQuery.terms());
-        Assertions.assertEquals(Set.of(CategoryID.from(expectedCategories)), actualQuery.categories());
-        Assertions.assertEquals(Set.of(CastMemberID.from(expectedCastMembers)), actualQuery.castMembers());
-        Assertions.assertEquals(Set.of(GenreID.from(expectedGenres)), actualQuery.genres());
+        Assertions.assertTrue(actualQuery.categories().isEmpty());
+        Assertions.assertTrue(actualQuery.castMembers().isEmpty());
+        Assertions.assertTrue(actualQuery.genres().isEmpty());
     }
 }
