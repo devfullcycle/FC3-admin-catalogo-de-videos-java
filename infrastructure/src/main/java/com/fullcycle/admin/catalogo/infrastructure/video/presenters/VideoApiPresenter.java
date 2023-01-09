@@ -1,5 +1,6 @@
 package com.fullcycle.admin.catalogo.infrastructure.video.presenters;
 
+import com.fullcycle.admin.catalogo.application.video.media.upload.UploadMediaOutput;
 import com.fullcycle.admin.catalogo.application.video.retrieve.get.VideoOutput;
 import com.fullcycle.admin.catalogo.application.video.retrieve.list.VideoListOutput;
 import com.fullcycle.admin.catalogo.application.video.update.UpdateVideoOutput;
@@ -75,5 +76,9 @@ public interface VideoApiPresenter {
 
     static Pagination<VideoListResponse> present(final Pagination<VideoListOutput> page) {
         return page.map(VideoApiPresenter::present);
+    }
+
+    static UploadMediaResponse present(final UploadMediaOutput output) {
+        return new UploadMediaResponse(output.videoId(), output.mediaType());
     }
 }
