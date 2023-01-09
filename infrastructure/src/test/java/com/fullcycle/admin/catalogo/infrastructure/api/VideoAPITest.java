@@ -6,6 +6,7 @@ import com.fullcycle.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.fullcycle.admin.catalogo.application.video.create.CreateVideoOutput;
 import com.fullcycle.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.fullcycle.admin.catalogo.application.video.delete.DeleteVideoUseCase;
+import com.fullcycle.admin.catalogo.application.video.media.get.GetMediaCommand;
 import com.fullcycle.admin.catalogo.application.video.media.get.GetMediaUseCase;
 import com.fullcycle.admin.catalogo.application.video.media.get.MediaOutput;
 import com.fullcycle.admin.catalogo.application.video.retrieve.get.GetVideoByIdUseCase;
@@ -617,5 +618,13 @@ public class VideoAPITest {
                 .andExpect(header().string(CONTENT_LENGTH, String.valueOf(expectedMedia.content().length)))
                 .andExpect(header().string(CONTENT_DISPOSITION, "attachment; filename=%s".formatted(expectedMedia.name())))
                 .andExpect(content().bytes(expectedMedia.content()));
+
+        final var captor = ArgumentCaptor.forClass(GetMediaCommand.class);
+
+        verify(this.getMediaUseCase).execute(captor.capture());
+
+        final var actualCmd = captor.getValue();
+        Assertions.assertEquals(expectedId.getValue(), actualCmd.videoId());
+        Assertions.assertEquals(expectedMediaType.name(), actualCmd.mediaType());
     }
 }
