@@ -67,6 +67,10 @@ spring:
     port: ${amqp.port}
     username: ${amqp.username}
     password: ${amqp.password}
+  servlet:
+    multipart:
+      max-file-size: 10GB
+      max-request-size: 100GB
 
 storage:
   catalogo-videos:
