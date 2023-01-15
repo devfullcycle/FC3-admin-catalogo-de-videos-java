@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 version '1.0-SNAPSHOT'
@@ -15,6 +16,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+jacoco {
+    toolVersion = "0.8.8"
 }
 
 tasks.named("test") {
