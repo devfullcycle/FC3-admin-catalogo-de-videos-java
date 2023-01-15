@@ -53,6 +53,9 @@ public class GCStorageService implements StorageService {
 
     @Override
     public void deleteAll(final List<String> ids) {
+        if (ids == null || ids.isEmpty())
+            return;
+
         final var blobs = ids.stream()
                 .map(id -> BlobId.of(this.bucket, id))
                 .toList();

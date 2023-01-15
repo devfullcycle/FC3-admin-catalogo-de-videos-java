@@ -17,7 +17,7 @@ google:
     project-id: ${GOOGLE_CLOUD_PROJECT}
     storage:
       catalogo-videos:
-        bucket: catalogo_videos
+        bucket: fc3_videos
         connect-timeout: 250
         read-timeout: 5000
         retry-delay: 50
@@ -67,6 +67,10 @@ spring:
     port: ${amqp.port}
     username: ${amqp.username}
     password: ${amqp.password}
+  servlet:
+    multipart:
+      max-file-size: 10GB # Max file size.
+      max-request-size: 100GB # Max request size.
 
 storage:
   catalogo-videos:
