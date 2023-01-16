@@ -25,3 +25,20 @@ jacoco {
 tasks.named("test") {
     useJUnitPlatform()
 }
+
+task unitTests(type: Test, group: "verification") {
+    useJUnitPlatform {
+        includeTags("unitTest")
+    }
+}
+task integrationTests(type: Test, group: "verification") {
+    useJUnitPlatform {
+        includeTags("integrationTest")
+    }
+}
+
+task e2eTests(type: Test, group: "verification") {
+    useJUnitPlatform {
+        includeTags("e2eTest")
+    }
+}

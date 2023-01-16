@@ -1,5 +1,6 @@
 package com.fullcycle.admin.catalogo;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,5 +21,6 @@ import java.lang.annotation.*;
 )
 @DataJpaTest
 @ExtendWith(MySQLCleanUpExtension.class)
+@Tag("integrationTest")
 public @interface MySQLGatewayTest {
 }
