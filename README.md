@@ -127,3 +127,41 @@ essas variáveis na hora de executar os comandos, exemplo:
 ```shell
 FLYWAY_DB=jdbc:mysql://prod:3306/adm_videos FLYWAY_USER=root FLYWAY_PASS=123h1hu ./gradlew flywayValidate
 ```
+
+### Executando com Docker
+Para rodar a aplicação localmente com Docker, iremos utilizar o `docker compose` e necessita de apenas três passos:
+<br/>
+
+#### 1. Gerando o artefato produtivo (jar)
+
+Para gerar o artefato produtivo, basta executar o comando:
+```
+./gradlew bootJar
+```
+<br/>
+
+#### 2. Executando os containers independentes
+
+Para executar o MySQL e o Rabbit, basta executar o comando abaixo.
+```
+docker-compose up -d
+```
+<br/>
+
+#### 3. Executando a aplicação junto dos outros containers
+
+Depois de visualizar que os demais containers estão de pé, para rodar sua aplicação junto basta executar o comando:
+```
+docker-compose --profile app up -d
+```
+
+> **Obs.:** Caso necessite rebuildar a imagem de sua aplicação é necessário um comando adicional:
+>```
+>docker compose build --no-cache app
+>```
+#### Parando os containers
+
+Para encerrar os containers, basta executar o comando:
+```
+docker compose --profile app stop
+```

@@ -1,6 +1,21 @@
 version: '3.7'
 
 services:
+  app:
+    container_name: adm_videos_app
+    build: .
+    profiles: ["app"]
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - rabbit
+    networks:
+      - adm_videos_network
+
   mysql:
     container_name: adm_videos_mysql
     image: mysql:latest
