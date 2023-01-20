@@ -165,3 +165,6 @@ Para encerrar os containers, basta executar o comando:
 ```
 docker compose --profile app stop
 ```
+
+## Github Actions
+TBD
