@@ -7,8 +7,8 @@ on:
       - 'feature/*'
       - 'hotfix/*'
       - 'modulos/*'
-  # Habilita o disparo manual através do página do Github Actions
-  workflow_dispatch:
+    # Habilita o disparo manual através do página do Github Actions
+    workflow_dispatch:
 
 # Permissões da nossa pipeline
 permissions:
