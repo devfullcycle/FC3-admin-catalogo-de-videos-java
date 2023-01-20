@@ -1,6 +1,7 @@
 package com.fullcycle.admin.catalogo;
 
 import com.fullcycle.admin.catalogo.infrastructure.configuration.ObjectMapperConfig;
+import org.junit.jupiter.api.Tag;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
@@ -15,5 +16,6 @@ import java.lang.annotation.*;
 @JsonTest(includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = ObjectMapperConfig.class)
 })
+@Tag("integrationTest")
 public @interface JacksonTest {
 }
