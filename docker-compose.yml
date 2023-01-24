@@ -3,7 +3,8 @@ version: '3.7'
 services:
   app:
     container_name: adm_videos_app
-    build: .
+#    build: .
+    image: deploydesexta/fc3-admin-catalogo-de-videos-java:modulos_29_ci-cd-2
     profiles: ["app"]
     restart: unless-stopped
     env_file:
