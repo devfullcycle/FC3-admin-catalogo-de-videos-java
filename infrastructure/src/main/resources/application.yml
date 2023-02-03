@@ -71,6 +71,12 @@ spring:
     multipart:
       max-file-size: 10GB # Max file size.
       max-request-size: 100GB # Max request size.
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: ${keycloak.host}/realms/${keycloak.realm}
 
 storage:
   catalogo-videos:

@@ -87,6 +87,7 @@ public class SecurityConfig {
         private static final String ROLES = "roles";
         private static final String RESOURCE_ACCESS = "resource_access";
         private static final String SEPARATOR = "_";
+        private static final String ROLE_PREFIX = "ROLE_";
 
         @Override
         public Collection<GrantedAuthority> convert(final Jwt jwt) {
@@ -94,7 +95,7 @@ public class SecurityConfig {
             final var resourceRoles = extractResourceRoles(jwt);
 
             return Stream.concat(realmRoles, resourceRoles)
-                    .map(role -> new SimpleGrantedAuthority(role.toUpperCase()))
+                    .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role.toUpperCase()))
                     .collect(Collectors.toSet());
         }
 

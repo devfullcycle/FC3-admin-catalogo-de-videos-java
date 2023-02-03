@@ -6,6 +6,10 @@ amqp:
   username: adm_videos
   password: 123456
 
+keycloak:
+  realm: test
+  host: http://test:8443
+
 logging:
   level:
     ROOT: info
