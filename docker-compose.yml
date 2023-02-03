@@ -8,7 +8,7 @@ services:
     profiles: ["app"]
     restart: unless-stopped
     env_file:
-      - .env
+      - .env.local
     ports:
       - 8080:8080
     depends_on:
@@ -41,6 +41,19 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - adm_videos_network
+
+  keycloak:
+    container_name: adm_videos_keycloak
+    image: quay.io/keycloak/keycloak:20.0.3
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - 8443:8080
+    command:
+      - start-dev
     networks:
       - adm_videos_network
 
