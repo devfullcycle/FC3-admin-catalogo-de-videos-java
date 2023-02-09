@@ -32,6 +32,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-amqp')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-resource-server')
 
     implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
 
@@ -46,6 +48,7 @@ dependencies {
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.amqp:spring-rabbit-test:2.4.8')
+    testImplementation('org.springframework.security:spring-security-test')
 
     testImplementation('org.testcontainers:testcontainers:1.17.6')
     testImplementation('org.testcontainers:mysql:1.17.6')
