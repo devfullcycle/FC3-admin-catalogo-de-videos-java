@@ -29,6 +29,20 @@ services:
     networks:
       - elastic
 
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.9
+    container_name: elk_logstash
+    restart: on-failure
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elastic
+
 networks:
   elastic:
     external: true
