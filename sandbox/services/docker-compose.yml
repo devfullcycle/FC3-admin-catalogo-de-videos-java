@@ -41,7 +41,8 @@ services:
     ports:
       - 8443:8080
     command:
-      - start-dev
+#      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+      - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
     volumes:
       - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
