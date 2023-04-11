@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: elk_es01
+    restart: on-failure
+    volumes:
+      - ../.docker/es01:/usr/share/elasticsearch/data
+    environment:
+      - "discovery.type=single-node"
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    networks:
+      - elastic
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    container_name: elk_kibana
+    restart: on-failure
+    ports:
+      - '5601:5601'
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - elastic
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.9
+    container_name: elk_logstash
+    restart: on-failure
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elastic
+
+networks:
+  elastic:
+    external: true
