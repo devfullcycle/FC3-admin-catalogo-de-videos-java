@@ -1,34 +1,22 @@
 version: '3.7'
 
 services:
-  app:
-    container_name: adm_videos_app
-#    build: .
-    image: deploydesexta/fc3-admin-catalogo-de-videos-java:modulos_29_ci-cd-2
-    profiles: ["app"]
-    restart: unless-stopped
-    env_file:
-      - .env.local
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-      - rabbit
-    networks:
-      - adm_videos_network
 
   mysql:
     container_name: adm_videos_mysql
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=adm_videos
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: adm_videos
+      MYSQL_ROOT_HOST: '%'
     security_opt:
       - seccomp:unconfined
     ports:
       - 3306:3306
+    volumes:
+      - ../.docker/mysql:/var/lib/mysql:rw
     networks:
-      - adm_videos_network
+      - adm_videos_services
 
   rabbit:
     container_name: adm_videos_rabbitmq
@@ -42,7 +30,7 @@ services:
       - 15672:15672
       - 5672:5672
     networks:
-      - adm_videos_network
+      - adm_videos_services
 
   keycloak:
     container_name: adm_videos_keycloak
@@ -53,9 +41,13 @@ services:
     ports:
       - 8443:8080
     command:
-      - start-dev
+#      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+      - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
+    volumes:
+      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
-      - adm_videos_network
+      - adm_videos_services
 
 networks:
-  adm_videos_network:
+  adm_videos_services:
+    external: true

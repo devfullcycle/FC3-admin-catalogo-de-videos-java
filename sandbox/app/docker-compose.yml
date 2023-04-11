@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: adm_videos_app
+#    image: deploydesexta/fc3-admin-catalogo-de-videos-java:modulos_29_ci-cd-2
+    build:
+      context: ../../
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    ports:
+      - 8080:8080
+    networks:
+      - adm_videos_network
+      - adm_videos_services
+
+networks:
+  adm_videos_network:
+  adm_videos_services:
+    external: true

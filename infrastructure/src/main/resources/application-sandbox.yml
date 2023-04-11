@@ -1,0 +1,24 @@
+amqp:
+  admin:
+    auto-create: ${AMQP_ADMIN_AUTO_CREATE:true}
+  host: ${AMQP_RABBIT_HOST}
+  port: ${AMQP_RABBIT_PORT}
+  username: ${AMQP_RABBIT_USERNAME}
+  password: ${AMQP_RABBIT_PASSWORD}
+
+keycloak:
+  realm: ${KEYCLOAK_REALM:fc3-codeflix}
+  host: ${KEYCLOAK_HOST:http://localhost:8443}
+
+mysql:
+  username: ${DATABASE_MYSQL_USERNAME:root}
+  password: ${DATABASE_MYSQL_PASSWORD:123456}
+  schema: adm_videos
+  url: ${DATABASE_MYSQL_URL:localhost:3306}
+
+server:
+  port: 8080
+  undertow:
+    threads:
+      worker: 10
+      io: 2

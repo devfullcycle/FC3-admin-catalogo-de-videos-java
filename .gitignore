@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 .env
 .env.local
+sandbox/.docker
 
 ### STS ###
 .apt_generated
