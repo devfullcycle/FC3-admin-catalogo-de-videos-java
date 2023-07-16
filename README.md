@@ -21,7 +21,7 @@
 
 1. Clonar o repositório:
 ```sh
-git clone https://github.com/codeedu/micro-admin-videos-java.git
+git clone https://github.com/devfullcycle/FC3-admin-catalogo-de-videos-java.git
 ```
 
 2. Subir o banco de dados MySQL com Docker:
@@ -34,15 +34,9 @@ docker-compose up -d
 ./gradlew flywayMigrate
 ```
 
-4. Executar a aplicação como SpringBoot app:
-```shell
-GOOGLE_CLOUD_CREDENTIALS=A \
-  GOOGLE_CLOUD_PROJECT=A \
-  ./gradlew bootRun
-``` 
-
 > Também é possível executar como uma aplicação Java através do
 > método main() na classe Main.java
+
 ## Banco de dados
 
 O banco de dados principal é um MySQL e para subir localmente vamos utilizar o
@@ -159,9 +153,74 @@ docker-compose --profile app up -d
 >```
 >docker compose build --no-cache app
 >```
+
 #### Parando os containers
 
 Para encerrar os containers, basta executar o comando:
 ```
 docker compose --profile app stop
 ```
+
+### Keycloak
+
+#### Setup
+
+1. Adicionar no docker-compose o container do Keycloak
+    ```
+      keycloak:
+        container_name: adm_videos_keycloak
+        image: quay.io/keycloak/keycloak:20.0.3
+        environment:
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+        ports:
+          - 8443:8080
+        command:
+          - start-dev
+    ```
+2. Subir o container e navegar ate `http://localhost:8443/`
+3. Criar um realm novo para o projeto: `fc3-codeflix`
+4. Navegar ate Realm settings > General > Endpoints
+    - Esses endpoints são importantes para fazer-mos a integração
+5. Navegar ate Realm settings > Keys
+    - Iremos utilizar a chave publica do algoritmo RS256 para verificar o token
+6. Criar o client:
+    - Client Id: fc3-admin-catalogo-de-videos
+    - Client authentication: ON -- isso faz acesso confidential
+    - Redirect URL: confidential
+    - Comentar das credentials `client and secret` que usaremos para login manual
+7. Criar a role:
+    - Role: catalogo-admin
+    - Description: Role que dá permissão de admin para os usuários
+8. Criar um group:
+    - Name: catalogo-admin
+    - Role mapping: assign `catalogo-admin`
+9. Criar um usuario:
+    - Nome: myuser
+    - Groups: adicionar ao `catalogo-admin`
+    - Criar um credentials: `123456`
+
+
+#### Integration
+
+1. Adicionar o starter do spring boot:
+   ```
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    
+    testImplementation('org.springframework.security:spring-security-test')
+   ```
+2. Configuração das properties:
+   ```properties
+       keycloak:
+           realm: fc3-codeflix
+           host: http://localhost:8443
+      
+       spring:
+           security:
+               oauth2:
+                   resourceserver:
+                       jwt:
+                           jwk-set-uri: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/certs
+                           issuer-uri: ${keycloak.host}/realms/${keycloak.realm}
+   ```
