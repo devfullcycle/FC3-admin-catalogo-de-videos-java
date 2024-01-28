@@ -199,7 +199,13 @@ docker compose --profile app stop
     - Nome: myuser
     - Groups: adicionar ao `catalogo-admin`
     - Criar um credentials: `123456`
-
+10. Criar o client para o frontend:
+   - Client Id: react-auth
+   - Client authentication: OFF -- isso faz acesso publico
+   - Root URL: `http://localhost:3000`
+   - Valid redirect URIs: `http://localhost:3000/*`   -- É necessário o /* 
+   - Web origins: `http://localhost:3000`  -- Essa propriedade evita bloqueio de CORS
+   - Realm Settings -> Security Defenses -> Content-Security-Policy: `frame-src 'self'; frame-ancestors 'self' http://localhost:3000;`
 
 #### Integration
 

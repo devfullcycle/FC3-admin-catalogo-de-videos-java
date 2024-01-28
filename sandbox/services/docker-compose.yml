@@ -39,14 +39,16 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     ports:
-      - 8443:8080
+      - 8443:8443
     command:
-      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
-#      - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
+#      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+      - start-dev --http-port=8443 --hostname-url=http://keycloak.internal:8443 # Utilizar esse comando quando a aplicação estiver dentro do Docker
     volumes:
       - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
       - adm_videos_services
+    extra_hosts:
+      - "keycloak.internal:127.0.0.1"
 
 networks:
   adm_videos_services:

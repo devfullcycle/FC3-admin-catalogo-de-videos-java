@@ -19,6 +19,8 @@ services:
       - filebeat
     labels:
       filebeat_collector: true
+    extra_hosts:
+      - "keycloak.internal:127.0.0.1"
 
   filebeat:
     container_name: adm_videos_filebeat
